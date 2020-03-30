@@ -1,14 +1,16 @@
 # The main entry point of your workflow.
 # After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
+import pandas as pd
 
-
-configfile: "config.yaml"
+#configfile: "config.yaml"
 report: "report/workflow.rst"
 
 # Allow users to fix the underlying OS via singularity.
 singularity: "docker://continuumio/miniconda3"
 
 include: "scripts/helper.py"
+
+runTable = pd.read_csv(config['runTable'], sep = ',')
 
 rule all:
     input:
@@ -21,4 +23,4 @@ rule all_sra_download:
                file = make_targets_from_runTable(runTable)[1])
 
 include: "rules/other.smk"
-include: "rules/sra_download.sml"
+include: "rules/sra_download.smk"

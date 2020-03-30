@@ -6,7 +6,7 @@ rule prefetch:
     threads:
         1
     log:
-        "logs/prefetch/{run}.log"
+        "logs/prefetch/{cell_line}/{chip_antibody}/{run}.log"
     input:
     output:
         sra_file = temp("sra_download/{cell_line}/{chip_antibody}/{run}.sra")
@@ -23,7 +23,7 @@ rule fastq_dump_se:
     threads:
         4
     log:
-        "logs/fastq-dump/{run}.log"
+        "logs/fastq-dump/{cell_line}/{chip_antibody}/{run}.log"
     input:
         rules.prefetch.output.sra_file
     output:
@@ -39,7 +39,7 @@ rule pigz_fastq:
     threads:
         4
     log:
-        "logs/pigz_fastq/{run}.log"
+        "logs/pigz_fastq/{cell_line}/{chip_antibody}/{run}.log"
     input:
         rules.fastq_dump_se.output
     output:
