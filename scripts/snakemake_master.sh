@@ -36,4 +36,4 @@ source ~/.bashrc
      --cluster-config /home/150/sxk150/mcf10_promoter_profiling/cluster.json\
     --keep-going\
 	-pr \
-    --config runTable=PRJNA336352_SraRunTable.txt
+    --config runTable=PRJNA336352_SraRunTable.txt library_type=${cli_library_type}

@@ -1,3 +1,6 @@
+# vim: syntax=python tabstop=4 expandtab
+# coding: utf-8
+
 # The main entry point of your workflow.
 # After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
 import pandas as pd
@@ -23,7 +26,7 @@ rule all:
 rule all_sra_download:
     input:
         expand("raw/{file}.fastq.gz",
-               file = make_targets_from_runTable(runTable)[1])
+               file = make_targets_from_runTable(runTable, library_type)[1])
 
 include: "rules/other.smk"
 include: "rules/sra_download.smk"
