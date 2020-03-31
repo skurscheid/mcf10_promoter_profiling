@@ -13,6 +13,7 @@ include: "scripts/helper.py"
 run="[^.]*"
 
 runTable = pd.read_csv(config['runTable'], sep = ',')
+library_type = config['library_type']
 
 rule all:
     input:

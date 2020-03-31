@@ -3,13 +3,13 @@ import os
 import yaml
 import pandas as pd
 
-def make_targets_from_runTable(runTable):
+def make_targets_from_runTable(runTable, library_type):
     t = []
     for index, row in runTable.iterrows():
         chip_antibody = row['chip_antibody'].split()[0]
         if chip_antibody == 'none':
             chip_antibody = 'Input'
-        e = list([row['Cell_Line'], chip_antibody, row['Run']])
+        e = list([row['Cell_Line'], chip_antibody, library_type, row['Run']])
         p = "/".join(e)
         t.append(p)
     return(t)
