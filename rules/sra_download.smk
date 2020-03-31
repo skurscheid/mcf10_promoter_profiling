@@ -27,13 +27,13 @@ rule fastq_dump_se:
     input:
         rules.prefetch.output.sra_file
     output:
-        directory("raw/{cell_line}/{chip_antibody}/{run}")
+        temp("raw/{cell_line}/{chip_antibody}/{run}.fastq")
     shell:
         """
-            fastq-dump --skip-technical {input} --outdir {output} 2>{log}
+            fastq-dump --skip-technical {input} --stdout > {output} 2>{log}
         """
 
-rule pigz_fastq:
+rule pigz_fastq_se:
     version:
         1
     threads:
@@ -46,6 +46,6 @@ rule pigz_fastq:
         "raw/{cell_line}/{chip_antibody}/{run}.fastq.gz"
     shell:
         """
-            pigz --processes {threads} --stdout {input}/{wildcards.run}.fastq > {output} 2>{log}
+            pigz --processes {threads} --stdout {input} > {output} 2>{log}
         """
     
