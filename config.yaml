@@ -1,3 +1,14 @@
-# This file should contain everything to configure the workflow on a global scale.
-# In case of sample based data, it should be complemented by a samples.tsv file that contains
-# one row per sample. It can be parsed easily via pandas.
+samples: samples.tsv
+units: units.tsv
+
+params:
+  general:
+    end1_suffix: "_1"
+    end2_suffix: "_2"
+    alignment_quality: "10"
+
+  bowtie2:
+    cli_params_global: "--very-sensitive --end-to-end"
+    index:
+      gadi: "/g/data/kv78/References/Genomes/Homo_sapiens/GRCh37_hg19_UCSC/GRCh37_hg19_UCSC_canonical"
+  fastp: ""
