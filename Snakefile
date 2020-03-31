@@ -10,6 +10,8 @@ singularity: "docker://continuumio/miniconda3"
 
 include: "scripts/helper.py"
 
+run="[^.]*"
+
 runTable = pd.read_csv(config['runTable'], sep = ',')
 
 rule all:
