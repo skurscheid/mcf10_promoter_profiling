@@ -20,6 +20,8 @@ rule run_fastp_se:
         "3"
     threads:
         4
+    log:
+        logfile = "logs/fastp/{cell_line}/{chip_antibody}/se/{run}.log"
     input:
         fastq = "raw/{cell_line}/{chip_antibody}/se/{run}.fastq.gz"
     output:
@@ -27,7 +29,7 @@ rule run_fastp_se:
         report_html = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.html",
         report_json = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.json"
     shell:
-        "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads}"
+        "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}"
 
 rule fastp_dummy:
     conda:
