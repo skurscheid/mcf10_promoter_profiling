@@ -38,4 +38,4 @@ rule all_fastp:
         
 include: "rules/other.smk"
 include: "rules/sra_download.smk"
-include: "rules/fastq_processing"
+include: "rules/fastq_processing.smk"
