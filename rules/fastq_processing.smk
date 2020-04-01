@@ -17,15 +17,15 @@ rule run_fastp_se:
     conda:
         "../envs/fastqProcessing.yaml"
     version:
-        "2"
+        "3"
     threads:
         4
     input:
-        fastq = "raw/SE/{run}{end}.fastq.gz"
+        fastq = "raw/{cell_line}/{chip_antibody}/se/{run}.fastq.gz"
    output:
-        trimmed = "fastp/trimmed/se/{biosample}/{replicate}/{run}{end}.fastq.gz",
-        report_html = "fastp/report/se/{biosample}/{replicate}/{run}{end}.fastp.html",
-        report_json = "fastp/report/se/{biosample}/{replicate}/{run}{end}.fastp.json"
+        trimmed = "fastp/trimmed/{cell_line}/{chip_antibody}/se/{run}.fastq.gz",
+        report_html = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.html",
+        report_json = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.json"
     shell:
         "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads}"
 
