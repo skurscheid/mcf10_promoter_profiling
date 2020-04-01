@@ -15,7 +15,7 @@ For usage, include this in your workflow.
 
 rule run_fastp_se:
     conda:
-        "../envs/fastqProcessing.yaml"
+        "../envs/fastp.yaml"
     version:
         "3"
     threads:
