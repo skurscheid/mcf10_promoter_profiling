@@ -26,7 +26,16 @@ rule all:
 rule all_sra_download:
     input:
         expand("raw/{file}.fastq.gz",
-               file = make_targets_from_runTable(runTable, library_type)[1])
+               file = make_targets_from_runTable(runTable, library_type))
 
+rule all_fastp:
+    input:
+        expand("fastp/trimmed/{file}.fastq.gz",
+               file = make_targets_from_runTable(runTable, library_type)),
+        expand("fastp/report/{file}.fastp.{suffix}",
+               file = make_targets_from_runTable(runTable, library_type),
+               suffix = ['html', 'json'])
+        
 include: "rules/other.smk"
 include: "rules/sra_download.smk"
+include: "rules/fastq_processing"
