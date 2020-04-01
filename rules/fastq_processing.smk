@@ -31,7 +31,7 @@ rule run_fastp_se:
 
 rule fastp_dummy:
     conda:
-        "../envs/fastqProcessing.yaml"
+        "../envs/fastp.yaml"
     version:
         "2"
     threads:
