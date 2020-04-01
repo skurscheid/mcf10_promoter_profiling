@@ -22,7 +22,7 @@ rule run_fastp_se:
         4
     input:
         fastq = "raw/{cell_line}/{chip_antibody}/se/{run}.fastq.gz"
-   output:
+    output:
         trimmed = "fastp/trimmed/{cell_line}/{chip_antibody}/se/{run}.fastq.gz",
         report_html = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.html",
         report_json = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.json"
