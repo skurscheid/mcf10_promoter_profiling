@@ -80,7 +80,7 @@ rule bam_sort:
     output:
         temp("samtools/sort/{cell_line}/{chip_antibody}/se/{run}.bam")
     shell:
-        "samtools sort -@ {threads} {input} -T {wildcards.library}.sorted -o {output}"
+        "samtools sort -@ {threads} {input} -T {wildcards.run}.sorted -o {output}"
 
 rule bam_mark_duplicates:
     conda:
