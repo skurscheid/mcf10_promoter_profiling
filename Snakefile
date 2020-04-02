@@ -38,8 +38,9 @@ rule all_fastp:
 
 rule all_align:
     input:
-        expand("bowtie2/align_global/{file}.bam",
-               file = make_targets_from_runTable(runTable, library_type))
+        expand("samtools/rmdup/{file}.{suffix}",
+               file = make_targets_from_runTable(runTable, library_type),
+               suffix = ["bam", "bam.bai"])
 
 include: "rules/other.smk"
 include: "rules/sra_download.smk"

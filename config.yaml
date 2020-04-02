@@ -10,7 +10,6 @@ params:
       gadi: ""
       shiny: "~/temp"
       
-
   bowtie2:
     cli_params_global: "--very-sensitive --end-to-end"
     index:
