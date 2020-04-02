@@ -139,8 +139,4 @@ rule bam_index:
     output:
         "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam.bai"
     shell:
-<<<<<<< HEAD
-        "samtools index {input} {output}"
-=======
         "samtools index {input} {output} 2>{log.logfile}"
->>>>>>> e552565210b139d050ff1234095e083b72c3e2e2
