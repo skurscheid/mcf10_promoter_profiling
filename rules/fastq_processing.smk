@@ -31,22 +31,3 @@ rule run_fastp_se:
     shell:
         "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}"
 
-rule fastp_dummy:
-    conda:
-        "../envs/fastp.yaml"
-    version:
-        "2"
-    threads:
-        1
-    input:
-        fastq = "raw/{run}{end}.fastq.gz"
-    output:
-        ln_target = "fastp/trimmed/se/{biosample}/{replicate}/{run}{end}.fastq.gz"
-    shell:
-        """
-            if [ -e {output.ln_target} ] && [ ! -L {output.ln_target} ];\
-                then rm {output.ln_target}; ln -sr {input.fastq} {output.ln_target};\
-            else\
-                ln -sr {input.fastq} {output.ln_target};\
-            fi
-        """

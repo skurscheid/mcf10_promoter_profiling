@@ -11,4 +11,5 @@ params:
     cli_params_global: "--very-sensitive --end-to-end"
     index:
       gadi: "/g/data/kv78/References/Genomes/Homo_sapiens/GRCh37_hg19_UCSC/GRCh37_hg19_UCSC_canonical"
+      shiny: "/Data/References/Genomes/Homo_sapiens/GRCh37_hg19_UCSC/GRCh37_hg19_UCSC_canonical"
   fastp: ""
