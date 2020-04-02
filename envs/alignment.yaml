@@ -6,3 +6,4 @@ channels:
 dependencies:
   - bowtie2=2.3.5
   - samtools=1.10
+  - picard=2.22.2

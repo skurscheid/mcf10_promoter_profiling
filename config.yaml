@@ -6,6 +6,10 @@ params:
     end1_suffix: "_1"
     end2_suffix: "_2"
     alignment_quality: "10"
+    temp_dir:
+      gadi: ""
+      shiny: "~/temp"
+      
 
   bowtie2:
     cli_params_global: "--very-sensitive --end-to-end"

@@ -22,9 +22,11 @@ singularity: "docker://skurscheid/snakemake_baseimage:0.2"
 rule bowtie2_se_global:
     """ runs alignment of single-end fastq file, modified parameters specific for HiC data"""
     conda:
-        "../envs/bowtie2.yaml"
+        "../envs/alignment.yaml"
     threads:
         8
+    group:
+        "alignment"
     params:
         index = get_index("shiny", config),
         cli_params_global = config['params']['bowtie2']['cli_params_global'],
@@ -47,3 +49,82 @@ rule bowtie2_se_global:
                     2>> {log.log}\
             | samtools view {params.samtools_params_global} - > {output.bam}
         """
+
+rule bam_quality_filter:
+    conda:
+        "../envs/alignment.yaml"
+    version:
+        "1.0"
+    group:
+        "alignment"
+    params:
+        qual = config["params"]["general"]["alignment_quality"]
+    input:
+        rules.bowtie2_se_global.output
+    output:
+        temp("samtools/quality_filtered/{cell_line}/{chip_antibody}/se/{run}.bam")
+    shell:
+        "samtools view -b -h -q {params.qual} {input} > {output}"
+
+rule bam_sort:
+    conda:
+        "../envs/alignment.yaml"
+    version:
+        "1.0"
+    threads:
+        4
+    group:
+        "alignment"
+    input:
+        rules.bam_quality_filter.output
+    output:
+        temp("samtools/sort/{cell_line}/{chip_antibody}/se/{run}.bam")
+    shell:
+        "samtools sort -@ {threads} {input} -T {wildcards.library}.sorted -o {output}"
+
+rule bam_mark_duplicates:
+    conda:
+        "../envs/alignment.yaml"
+    version:
+        "1.0"
+    group:
+        "alignment"
+    params:
+        temp = config["params"]["general"]["temp_dir"]["shiny"]
+    input:
+        rules.bam_sort.output
+    output:
+        out= temp("picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.bam"),
+        metrics = "picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.metrics.txt"
+    shell:
+        """
+            picard MarkDuplicates \
+            INPUT={input}\
+            OUTPUT={output.out}\
+            ASSUME_SORTED=TRUE\
+            METRICS_FILE={output.metrics}
+        """
+
+rule bam_rmdup:
+    conda:
+        "../envs/alignment.yaml"
+    group:
+        "alignment"
+    input:
+        rules.bam_mark_duplicates.output.out
+    output:
+        "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam"
+    shell:
+        "samtools rmdup {input} {output}"
+
+rule bam_index:
+    conda:
+        "../envs/alignment.yaml"
+    group:
+        "alignment"
+    input:
+        rules.bam_rmdup.output
+    output:
+        "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam.bai"
+    shell:
+        "samtools index {input} {output}"
