@@ -106,11 +106,11 @@ rule bam_mark_duplicates:
         metrics = "picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.metrics.txt"
     shell:
         """
-            java -XX:ParallelGCThreads={threads} -Xms512m -Xmx2g MarkDuplicates \
-            -INPUT={input}\
-            -OUTPUT={output.out}\
-            -ASSUME_SORTED=TRUE\
-            -METRICS_FILE={output.metrics} 2>{log.logfile}
+            picard MarkDuplicates -XX:ParallelGCThreads={threads} -Xms2g -Xmx8g\
+            INPUT={input}\
+            OUTPUT={output.out}\
+            ASSUME_SORTED=TRUE\
+            METRICS_FILE={output.metrics} 2>{log.logfile}
         """
 
 rule bam_rmdup:
