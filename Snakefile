@@ -26,7 +26,7 @@ rule all:
 rule all_sra_download:
     input:
         expand("raw/{file}.fastq.gz",
-               file = make_targets_from_runTable(runTable, library_type)[1])
+               file = make_targets_from_runTable(runTable, library_type))
 
 include: "rules/other.smk"
 include: "rules/sra_download.smk"

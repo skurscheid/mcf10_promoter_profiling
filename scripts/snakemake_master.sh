@@ -1,8 +1,8 @@
 #!/bin/bash
-#PBS -P pb97
-#PBS -l walltime=24:00:00
+#PBS -P gp60
+#PBS -l walltime=2:00:00
 #PBS -l wd
-#PBS -q biodev
+#PBS -q express
 #PBS -e /home/150/sxk150/qsub_error
 #PBS -o /home/150/sxk150/qsub_out
 #PBS -l ncpus=4
