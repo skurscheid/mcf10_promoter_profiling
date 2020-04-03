@@ -15,23 +15,25 @@ For usage, include this in your workflow.
 
 rule run_fastp_se:
     conda:
-        "../envs/fastqProcessing.yaml"
+        "../envs/fastp.yaml"
     version:
-        "2"
+        "3"
     threads:
         4
+    log:
+        logfile = "logs/fastp/{cell_line}/{chip_antibody}/se/{run}.log"
     input:
-        fastq = "raw/SE/{run}{end}.fastq.gz"
-   output:
-        trimmed = "fastp/trimmed/se/{biosample}/{replicate}/{run}{end}.fastq.gz",
-        report_html = "fastp/report/se/{biosample}/{replicate}/{run}{end}.fastp.html",
-        report_json = "fastp/report/se/{biosample}/{replicate}/{run}{end}.fastp.json"
+        fastq = "raw/{cell_line}/{chip_antibody}/se/{run}.fastq.gz"
+    output:
+        trimmed = "fastp/trimmed/{cell_line}/{chip_antibody}/se/{run}.fastq.gz",
+        report_html = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.html",
+        report_json = "fastp/report/{cell_line}/{chip_antibody}/se/{run}.fastp.json"
     shell:
-        "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads}"
+        "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}"
 
 rule fastp_dummy:
     conda:
-        "../envs/fastqProcessing.yaml"
+        "../envs/fastp.yaml"
     version:
         "2"
     threads:
