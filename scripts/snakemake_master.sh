@@ -1,8 +1,8 @@
 #!/bin/bash
 #PBS -P gp60
-#PBS -l walltime=2:00:00
+#PBS -l walltime=24:00:00
 #PBS -l wd
-#PBS -q express
+#PBS -q normal
 #PBS -e /home/150/sxk150/qsub_error
 #PBS -o /home/150/sxk150/qsub_out
 #PBS -l ncpus=4
@@ -36,4 +36,4 @@ source ~/.bashrc
      --cluster-config /home/150/sxk150/mcf10_promoter_profiling/cluster.json\
     --keep-going\
 	-pr \
-    --config runTable=PRJNA336352_SraRunTable.txt library_type=${cli_library_type}
+    --config runTable=PRJNA336352_SraRunTable.txt library_type=${cli_library_type} machine=gadi
