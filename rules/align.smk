@@ -24,13 +24,14 @@ rule bowtie2_se_global:
     conda:
         "../envs/alignment.yaml"
     threads:
-        8
+        12
     group:
         "alignment"
     params:
         index = get_index(machine, config),
         cli_params_global = config['params']['bowtie2']['cli_params_global'],
-        samtools_params_global = "-F 4 -bS"
+        samtools_params_global = "-F 4 -bS",
+        params.threads = {threads} - 2
     log:
         logfile = "logs/bowtie2_global/{cell_line}/{chip_antibody}/se/{run}.log"
     input:
@@ -41,7 +42,7 @@ rule bowtie2_se_global:
         """
             bowtie2\
                     -x {params.index}\
-                    -p {threads}\
+                    -p {params.threads}\
                     -U {input.fq}\
                     {params.cli_params_global}\
                     --rg-id BMG\
@@ -96,7 +97,7 @@ rule bam_mark_duplicates:
     log:
         logfile = "logs/picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.log"
     threads:
-        8
+        4
     params:
         temp = config["params"]["general"]["temp_dir"]["shiny"]
     input:
