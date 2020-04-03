@@ -28,7 +28,7 @@ rule bowtie2_se_global:
     group:
         "alignment"
     params:
-        index = get_index(config['machine'], config),
+        index = get_index(machine, config),
         cli_params_global = config['params']['bowtie2']['cli_params_global'],
         samtools_params_global = "-F 4 -bS"
     log:

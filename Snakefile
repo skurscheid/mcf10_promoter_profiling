@@ -17,6 +17,7 @@ run="[^.]*"
 
 runTable = pd.read_csv(config['runTable'], sep = ',')
 library_type = config['library_type']
+machine = config['machine']
 
 rule all:
     input:
@@ -40,6 +41,12 @@ rule all_align:
     input:
         expand("samtools/rmdup/{file}.{suffix}",
                file = make_targets_from_runTable(runTable, library_type),
+               suffix = ["bam", "bam.bai"])
+
+rule all_align_test:
+    input:
+        expand("samtools/rmdup/{file}.{suffix}",
+               file = make_targets_from_runTable(runTable, library_type)[77],
                suffix = ["bam", "bam.bai"])
 
 include: "rules/other.smk"
