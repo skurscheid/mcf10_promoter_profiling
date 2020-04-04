@@ -30,8 +30,7 @@ rule bowtie2_se_global:
     params:
         index = get_index(machine, config),
         cli_params_global = config['params']['bowtie2']['cli_params_global'],
-        samtools_params_global = "-F 4 -bS",
-        params.threads = {threads} - 2
+        samtools_params_global = "-F 4 -bS"
     log:
         logfile = "logs/bowtie2_global/{cell_line}/{chip_antibody}/se/{run}.log"
     input:
@@ -40,9 +39,10 @@ rule bowtie2_se_global:
         bam = temp("bowtie2/align_global/{cell_line}/{chip_antibody}/se/{run}.bam")
     shell:
         """
+            export cli_threads=$(expr {threads} - 2);\
             bowtie2\
                     -x {params.index}\
-                    -p {params.threads}\
+                    -p $cli_threads\
                     -U {input.fq}\
                     {params.cli_params_global}\
                     --rg-id BMG\
@@ -126,7 +126,7 @@ rule bam_rmdup:
     output:
         "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam"
     shell:
-        "samtools rmdup {input} {output} 2>{log.logfile}"
+        "samtools rmdup -s {input} {output} 2>{log.logfile}"
 
 rule bam_index:
     conda:

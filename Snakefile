@@ -46,7 +46,7 @@ rule all_align:
 rule all_align_test:
     input:
         expand("samtools/rmdup/{file}.{suffix}",
-               file = make_targets_from_runTable(runTable, library_type)[77],
+               file = make_targets_from_runTable(runTable, library_type)[88],
                suffix = ["bam", "bam.bai"])
 
 include: "rules/other.smk"
