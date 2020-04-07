@@ -18,22 +18,22 @@ source ~/.bashrc
 /home/150/sxk150/miniconda3/envs/snakemake/bin/snakemake -s /home/150/sxk150/mcf10_promoter_profiling/Snakefile ${cli_target}\
 	--use-conda\
 	--cluster "qsub -P {cluster.P}\
-                    -l ncpus={threads} \
-                    -q {cluster.queue} \
-                    -l mem={cluster.mem} \
+                    -l ncpus={threads}\
+                    -q {cluster.queue}\
+                    -l mem={cluster.mem}\
                     -l wd\
                     -l walltime={cluster.walltime}\
 		    -l storage={cluster.storage}\
 		    -l jobfs={cluster.jobfs}\
                     -M {cluster.M}\
                     -m {cluster.m}\
-                    -e {cluster.error_out_dir} \
-                    -o {cluster.std1_out_dir}" \
+                    -e {cluster.error_out_dir}\
+                    -o {cluster.std1_out_dir}"\
 	--jobs 100\
 	-d /g/data/kv78/PromoterSeqCap/public_data/PRJNA336352\
 	--rerun-incomplete \
     --local-cores 1\
-     --cluster-config /home/150/sxk150/mcf10_promoter_profiling/cluster.json\
+    --cluster-config /home/150/sxk150/mcf10_promoter_profiling/cluster.json\
     --keep-going\
 	-pr \
-    --config runTable=PRJNA336352_SraRunTable.txt library_type=${cli_library_type} machine=gadi
+    --config project=PRJNA336352 library_type=${cli_library_type} machine=gadi

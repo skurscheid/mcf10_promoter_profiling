@@ -9,7 +9,13 @@ params:
     temp_dir:
       gadi: ""
       shiny: "~/temp"
-      
+    runTable:
+      PRJNA336352:
+        file: 'PRJNA336352_SraRunTable.txt'
+        selected_columns: ['Cell_Line', 'aggregate_column', 'Run']
+        aggregate_column: 'chip_antibody'
+        chip_input_value: 'none'
+
   bowtie2:
     cli_params_global: "--very-sensitive --end-to-end"
     index:
