@@ -51,7 +51,7 @@ rule all_align_test:
 
 rule all_macs2_predictd:
     input:
-        expand("macs2/macs2/{predictd}",
+        expand("macs2/precitd/{file}",
             file = make_targets_from_runTable(runTable, library_type)[88])
     
 include: "rules/other.smk"
