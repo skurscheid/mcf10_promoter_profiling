@@ -45,7 +45,7 @@ rule all_align:
 
 rule all_macs2_predictd:
     input:
-        expand("macs2/predictd/{file}",
+        expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type))
 
 # test rules
@@ -57,7 +57,7 @@ rule all_align_test:
 
 rule all_macs2_predictd_test:
     input:
-        expand("macs2/predictd/{file}",
+        expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type)[88])
     
 include: "rules/other.smk"

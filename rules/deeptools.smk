@@ -43,13 +43,12 @@ rule macs2_predictd:
     input:
         'samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam'
     output:
-        directory('macs2/predictd/{cell_line}/{chip_antibody}/se/{run}')
+        file = ('macs2/predictd/{cell_line}/{chip_antibody}/se/{run}_predictd.R')
     shell:
         """
             macs2 predictd -i {input}\
                            --gsize {params.gsize}\
-                           --outdir {output}\
-                           --rfile {wildcards.run} 2>{log.logfile}
+                           --rfile {output.file} 2>{log.logfile}
         """
 
 rule deeptools_multiBamSummary:
