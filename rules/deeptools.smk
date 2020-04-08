@@ -27,7 +27,30 @@ def get_multi_bam_summary_labels(runTable, cell_line):
         l.append('_'.join([cell_line, row.aggregate_column, row.Run]))
     return(l)
 
-rule macs2_predictd
+rule macs2_predictd:
+    version:
+        1
+    conda:
+        '../envs/macs2.yaml'
+    threads:
+        1
+    group:
+       'deeptools'
+    log:
+        logfile = 'logs/macs2/predictd/{cell_line}/{chip_antibody}/se/{run}.log'
+    params:
+        gsize = 'hs'
+    input:
+        'samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam'
+    output:
+        directory('macs2/predictd/{cell_line}/{chip_antibody}/se/{run}')
+    shell:
+        """
+            macs2 predictd -i {input}\
+                           --gsize {params.gsize}\
+                           --outdir {output}\
+                           --rfile {wildcards.unit}
+        """
 
 rule deeptools_multiBamSummary:
     version:

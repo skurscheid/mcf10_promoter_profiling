@@ -15,7 +15,7 @@ include: "scripts/helper.py"
 
 run="[^.]*"
 
-runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',')
+runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',').index(['row_id'])
 library_type = config['library_type']
 machine = config['machine']
 
@@ -49,7 +49,13 @@ rule all_align_test:
                file = make_targets_from_runTable(runTable, library_type)[88],
                suffix = ["bam", "bam.bai"])
 
+rule all_macs2_predictd:
+    input:
+        expand("macs2/macs2/{predictd}",
+            file = make_targets_from_runTable(runTable, library_type)[88])
+    
 include: "rules/other.smk"
 include: "rules/sra_download.smk"
 include: "rules/fastq_processing.smk"
 include: "rules/align.smk"
+include: "rules/deeptools.smk"
