@@ -13,13 +13,23 @@ Rules for processing HTS data with deepTools
 For usage, include this in your workflow.
 """
 
-def get_multi_bam_summary_input(runTable, cell_line):
+def get_multi_bam_summary_input(runTable, cell_line, input_root, library_type, selected_columns):
+    l = []
+    sel_rows = runTable[selected_columns[0]] == cell_line
+    for index, row in runTable[sel_rows][selected_columns].iterrows():
+        l.append('/'.join([input_root, cell_line, row.aggregate_column, library_type, row.Run]) + '.bam')
+    return(l)
     
-
 def get_multi_bam_summary_labels(runTable, cell_line):
+    l = []
+    sel_rows = runTable[selected_columns[0]] == cell_line
+    for index, row in runTable[sel_rows][selected_columns].iterrows():
+        l.append('_'.join([cell_line, row.aggregate_column, row.Run]))
+    return(l)
 
+rule macs2_predictd
 
-rule multi_bam_summary:
+rule deeptools_multiBamSummary:
     version:
         1
     conda:
@@ -29,7 +39,7 @@ rule multi_bam_summary:
     group:
         "deeptools"
     params:
-        labels 
+        labels = get_multi_bam_summary_labels
     log:
         logfile = "logs/deeptools_multiBamSummary/{cell_line}.log"
     input:
@@ -40,6 +50,6 @@ rule multi_bam_summary:
         """
             multiBamSummary bins --bamfiles {input}\
                                  --numberOfProcessors {threads}\
-                                 --labels \
+                                 --labels {params.labels}\
                                  --outFileName {output.npz} 2>{log.logfile}
         """
