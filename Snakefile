@@ -43,15 +43,21 @@ rule all_align:
                file = make_targets_from_runTable(runTable, library_type),
                suffix = ["bam", "bam.bai"])
 
+rule all_macs2_predictd:
+    input:
+        expand("macs2/predictd/{file}",
+            file = make_targets_from_runTable(runTable, library_type))
+
+# test rules
 rule all_align_test:
     input:
         expand("samtools/rmdup/{file}.{suffix}",
                file = make_targets_from_runTable(runTable, library_type)[88],
                suffix = ["bam", "bam.bai"])
 
-rule all_macs2_predictd:
+rule all_macs2_predictd_test:
     input:
-        expand("macs2/precitd/{file}",
+        expand("macs2/predictd/{file}",
             file = make_targets_from_runTable(runTable, library_type)[88])
     
 include: "rules/other.smk"

@@ -49,7 +49,7 @@ rule macs2_predictd:
             macs2 predictd -i {input}\
                            --gsize {params.gsize}\
                            --outdir {output}\
-                           --rfile {wildcards.unit}
+                           --rfile {wildcards.run} 2>{log.logfile}
         """
 
 rule deeptools_multiBamSummary:
