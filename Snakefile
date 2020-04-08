@@ -15,7 +15,7 @@ include: "scripts/helper.py"
 
 run="[^.]*"
 
-runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',').index(['row_id'])
+runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',', index_col='row_id')
 library_type = config['library_type']
 machine = config['machine']
 
