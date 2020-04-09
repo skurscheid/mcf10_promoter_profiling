@@ -48,6 +48,10 @@ rule all_macs2_predictd:
         expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type))
 
+rule all_deeptools_multiBamSummary:
+    input:
+        expand("deeptools/multiBamSummary/{cell_line}.npz",
+            cell_line = 'MCF10A')
 # test rules
 rule all_align_test:
     input:
@@ -59,7 +63,13 @@ rule all_macs2_predictd_test:
     input:
         expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type)[88])
-    
+
+rule all_deeptools_multiBamSummary_test:
+    input:
+        expand("deeptools/multiBamSummary/{cell_line}.npz",
+            cell_line = 'MCF10A')
+
+# includes of rules
 include: "rules/other.smk"
 include: "rules/sra_download.smk"
 include: "rules/fastq_processing.smk"

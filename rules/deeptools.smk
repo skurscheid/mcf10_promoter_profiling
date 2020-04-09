@@ -61,7 +61,8 @@ rule deeptools_multiBamSummary:
     group:
         "deeptools"
     params:
-        labels = get_multi_bam_summary_labels
+        labels = get_multi_bam_summary_labels,
+        extendReads = 200
     log:
         logfile = "logs/deeptools_multiBamSummary/{cell_line}.log"
     input:
@@ -73,5 +74,6 @@ rule deeptools_multiBamSummary:
             multiBamSummary bins --bamfiles {input}\
                                  --numberOfProcessors {threads}\
                                  --labels {params.labels}\
+                                 --extendReads {params.extendReads}\
                                  --outFileName {output.npz} 2>{log.logfile}
         """
