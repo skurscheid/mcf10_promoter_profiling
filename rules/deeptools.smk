@@ -16,7 +16,7 @@ For usage, include this in your workflow.
 def get_multi_bam_summary_input(wildcards):
     selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
     library_type = config['library_type']
-    cell_line = {wildcards['cell_line']}
+    cell_line = wildcards['cell_line']
     l = []
     sel_rows = runTable[selected_columns[0]] == cell_line
     for index, row in runTable[sel_rows][selected_columns].iterrows():
@@ -25,7 +25,7 @@ def get_multi_bam_summary_input(wildcards):
     
 def get_multi_bam_summary_labels(wildcards):
     selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
-    cell_line = {wildcards['cell_line']}
+    cell_line = wildcards['cell_line']
     l = []
     sel_rows = runTable[selected_columns[0]] == cell_line
     for index, row in runTable[sel_rows][selected_columns].iterrows():
