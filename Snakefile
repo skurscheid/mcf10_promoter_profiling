@@ -18,6 +18,7 @@ run="[^.]*"
 runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',', index_col='row_id')
 library_type = config['library_type']
 machine = config['machine']
+selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
 
 rule all:
     input:

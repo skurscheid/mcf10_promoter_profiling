@@ -13,9 +13,9 @@ Rules for processing HTS data with deepTools
 For usage, include this in your workflow.
 """
 
-def get_multi_bam_summary_input(runTable, cell_line, input_root, library_type, selected_columns):
+def get_multi_bam_summary_input(runTable, input_root, library_type, selected_columns):
     l = []
-    sel_rows = runTable[selected_columns[0]] == cell_line
+    sel_rows = runTable[selected_columns[0]] == wildcards['cell_line']
     for index, row in runTable[sel_rows][selected_columns].iterrows():
         l.append('/'.join([input_root, cell_line, row.aggregate_column, library_type, row.Run]) + '.bam')
     return(l)
