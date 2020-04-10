@@ -49,10 +49,11 @@ rule all_macs2_predictd:
         expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type))
 
-rule all_deeptools_multiBamSummary:
+rule all_deeptools_plotCorrelation:
     input:
-        expand("deeptools/multiBamSummary/{cell_line}.npz",
-            cell_line = 'MCF10A')
+        expand("deeptools/plotCorrelation/{cell_line}.png",
+            cell_line = ['MCF10A', 'MCF7', 'AU565'])
+
 # test rules
 rule all_align_test:
     input:
@@ -65,10 +66,11 @@ rule all_macs2_predictd_test:
         expand("macs2/predictd/{file}_predictd.R",
             file = make_targets_from_runTable(runTable, library_type)[88])
 
-rule all_deeptools_multiBamSummary_test:
+rule all_deeptools_plotCorrelation_test:
     input:
-        expand("deeptools/multiBamSummary/{cell_line}.npz",
+        expand("deeptools/plotCorrelation/{cell_line}.png",
             cell_line = 'MCF10A')
+
 
 # includes of rules
 include: "rules/other.smk"

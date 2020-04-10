@@ -82,3 +82,25 @@ rule deeptools_multiBamSummary:
                                  --extendReads {params.extendReads}\
                                  --outFileName {output.npz} 2>{log.logfile}
         """
+
+rule deeptools_plotCorrelation:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        1
+    group:
+        "deeptools"
+    params:
+    log:
+        logfile = "logs/deeptools_plotCorrelation/{cell_line}.log"
+    input:
+        rules.deeptools_multiBamSummary.output.npz
+    output:
+        png = "deeptools/plotCorrelation/{cell_line}_heatmap.png"
+    shell:
+        """
+            plotCorrelation -in {input} --whatToPlot heatmap --corMethod pearson -o {output}
+        """
+
