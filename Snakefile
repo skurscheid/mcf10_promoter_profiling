@@ -54,6 +54,12 @@ rule all_deeptools_plotCorrelation:
         expand("deeptools/plotCorrelation/{cell_line}.png",
             cell_line = ['MCF10A', 'MCF7', 'AU565'])
 
+rule all_deeptools_bamCoverage:
+    input:
+        expand("deeptools/bamCoverage/{file}.{suffix}",
+               file = make_targets_from_runTable(runTable, library_type),
+               suffix = ["bw"])
+
 # test rules
 rule all_align_test:
     input:
