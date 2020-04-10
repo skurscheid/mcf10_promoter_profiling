@@ -71,6 +71,11 @@ rule all_deeptools_plotCorrelation_test:
         expand("deeptools/plotCorrelation/{cell_line}.png",
             cell_line = 'MCF10A')
 
+rule all_deeptools_bamCoverage_test:
+    input:
+        expand("deeptools/bamCoverage/{file}.{suffix}",
+               file = make_targets_from_runTable(runTable, library_type)[88],
+               suffix = ["bw"])
 
 # includes of rules
 include: "rules/other.smk"
