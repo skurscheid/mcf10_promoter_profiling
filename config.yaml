@@ -22,3 +22,8 @@ params:
       gadi: "/g/data/kv78/References/Genomes/Homo_sapiens/GRCh37_hg19_UCSC/GRCh37_hg19_UCSC_canonical"
       shiny: "/Data/References/Genomes/Homo_sapiens/GRCh37_hg19_UCSC/GRCh37_hg19_UCSC_canonical"
   fastp: ""
+
+  deeptools:
+    genome_size:
+      GRCh37_hg19_UCSC: 2864785220
+      

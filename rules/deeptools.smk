@@ -42,13 +42,13 @@ rule macs2_predictd:
     group:
        'deeptools'
     log:
-        logfile = 'logs/macs2/predictd/{cell_line}/{chip_antibody}/se/{run}.log'
+        logfile = 'logs/macs2/predictd/{cell_line}/{chip_antibody}/{library_type}/{run}.log'
     params:
         gsize = 'hs'
     input:
-        'samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam'
+        'samtools/rmdup/{cell_line}/{chip_antibody}/{library_type}/{run}.bam'
     output:
-        file = ('macs2/predictd/{cell_line}/{chip_antibody}/se/{run}_predictd.R')
+        file = ('macs2/predictd/{cell_line}/{chip_antibody}/{library_type}/{run}_predictd.R')
     shell:
         """
             macs2 predictd -i {input}\
@@ -104,3 +104,49 @@ rule deeptools_plotCorrelation:
             plotCorrelation -in {input} --whatToPlot heatmap --corMethod pearson -o {output}
         """
 
+rule deeptools_bamCoverage:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        8
+    group:
+        "deeptools"
+    params:
+        extendReads = 200,
+        binSize = 30,
+        smoothLength = 10,
+        effectiveGenomeSize = config['params']['deeptools']['genome_size']['GRCh37_hg19_UCSC'],
+        normalizeUsing = 'RPKM'
+    log:
+        logfile = "logs/deeptools_bamCoverage/{cell_line}.log"
+    input:
+        rules.bam_rmdup.output
+    output:
+        "deeptools/bamCoverage/{cell_line}/{chip_antibody}/{library_type}/{run}.bw"
+    shell:
+        """
+            bamCoverage -b {input}\
+                        --numberOfProcessors {threads}\
+                        --effectiveGenomeSize {params.effectiveGenomeSize}\
+                        --normalizeUsing {params.normalizeUsing}\
+                        --extendReads {params.extendReads}\
+                        --binSize {params.binSize}\
+                        --smoothLength {params.smoothLength}\
+                        --outFileName {output} 2>{log.logfile}
+        """
+
+#rule deeptools_computeMatrix:
+#    version:
+#        1
+#    conda:
+#        "../envs/deeptools.yaml"
+#    threads:
+#        1
+#    group:
+#        "deeptools"
+#    params:
+#    log:
+#        logfile = "logs/deeptools_computeMatrix/{cell_line}.log"
+#    input:

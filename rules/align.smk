@@ -59,13 +59,13 @@ rule bam_quality_filter:
     group:
         "alignment"
     log:
-        logfile = "logs/samtools/quality_filtered/{cell_line}/{chip_antibody}/se/{run}.log"
+        logfile = "logs/samtools/quality_filtered/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     params:
         qual = config["params"]["general"]["alignment_quality"]
     input:
         rules.bowtie2_se_global.output
     output:
-        temp("samtools/quality_filtered/{cell_line}/{chip_antibody}/se/{run}.bam")
+        temp("samtools/quality_filtered/{cell_line}/{chip_antibody}/{library_type}/{run}.bam")
     shell:
         "samtools view -b -h -q {params.qual} {input} > {output} 2>{log.logfile}"
 
@@ -79,11 +79,11 @@ rule bam_sort:
     group:
         "alignment"
     log:
-        logfile = "logs/samtools/sort/{cell_line}/{chip_antibody}/se/{run}.log"
+        logfile = "logs/samtools/sort/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
         rules.bam_quality_filter.output
     output:
-        temp("samtools/sort/{cell_line}/{chip_antibody}/se/{run}.bam")
+        temp("samtools/sort/{cell_line}/{chip_antibody}/{library_type}/{run}.bam")
     shell:
         "samtools sort -@ {threads} {input} -T {wildcards.run}.sorted -o {output}"
 
@@ -95,7 +95,7 @@ rule bam_mark_duplicates:
     group:
         "alignment"
     log:
-        logfile = "logs/picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.log"
+        logfile = "logs/picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     threads:
         4
     params:
@@ -103,8 +103,8 @@ rule bam_mark_duplicates:
     input:
         rules.bam_sort.output
     output:
-        out= temp("picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.bam"),
-        metrics = "picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/se/{run}.metrics.txt"
+        out= temp("picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/{library_type}/{run}.bam"),
+        metrics = "picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/{library_type}/{run}.metrics.txt"
     shell:
         """
             picard MarkDuplicates -XX:ParallelGCThreads={threads} -Xms2g -Xmx8g\
@@ -120,11 +120,11 @@ rule bam_rmdup:
     group:
         "alignment"
     log:
-        logfile = "logs/samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.log"
+        logfile = "logs/samtools/rmdup/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
         rules.bam_mark_duplicates.output.out
     output:
-        "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam"
+        "samtools/rmdup/{cell_line}/{chip_antibody}/{library_type}/{run}.bam"
     shell:
         "samtools rmdup -s {input} {output} 2>{log.logfile}"
 
@@ -134,10 +134,10 @@ rule bam_index:
     group:
         "alignment"
     log:
-        logfile = "logs/samtools/index/{cell_line}/{chip_antibody}/se/{run}.log"
+        logfile = "logs/samtools/index/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
         rules.bam_rmdup.output
     output:
-        "samtools/rmdup/{cell_line}/{chip_antibody}/se/{run}.bam.bai"
+        "samtools/rmdup/{cell_line}/{chip_antibody}/{library_type}/{run}.bam.bai"
     shell:
         "samtools index {input} {output} 2>{log.logfile}"
