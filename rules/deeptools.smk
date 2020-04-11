@@ -174,7 +174,7 @@ rule merge_bigwigs:
         else:
             if len({input.chip}) == 1:
                 cmd = 'ln -sr {input.chip} {output}'
-            else if len({input.chip}) == 2:
+            elif len({input.chip}) == 2:
                 cmd = 'bigwigCompare -b1 {input.chip}[0] -b2 {input.chip}[1] --operation mean -o {output}'
             shell(cmd)
 
