@@ -167,7 +167,7 @@ rule merge_bigwigs:
     output:
         "deeptools/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.bw"
     script:
-        "scripts/deeptools_merge_bigwigs.py"
+        "../scripts/deeptools_merge_bigwigs.py"
 
 #rule deeptools_computeMatrix:
 #    version:
