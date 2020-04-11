@@ -85,7 +85,7 @@ rule all_deeptools_bamCoverage_test:
 
 rule all_merge_bigwigs_test:
     input:
-        "deeptools/merged/MCF10A/Input_coverage.bw"
+        "deeptools/merge_bigwigs/MCF10A/Input_coverage.bw"
 
 # includes of rules
 include: "rules/other.smk"

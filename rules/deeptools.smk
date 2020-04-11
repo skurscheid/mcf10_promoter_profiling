@@ -161,11 +161,11 @@ rule merge_bigwigs:
         "deeptools"
     params:
     log:
-        logfile = "logs/merge_bigwigs/{cell_line}.log"
+        logfile = "logs/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.log"
     input:
         chip = get_bigwigCompare_inputs
     output:
-        "deeptools/merged/{cell_line}/{chip_antibody}_coverage.bw"
+        "deeptools/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.bw"
     run:
         try:
             len({input.chip}) < 3
