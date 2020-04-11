@@ -120,7 +120,7 @@ rule deeptools_bamCoverage:
         effectiveGenomeSize = config['params']['deeptools']['genome_size']['GRCh37_hg19_UCSC'],
         normalizeUsing = 'RPKM'
     log:
-        logfile = "logs/deeptools_bamCoverage/{cell_line}.log"
+        logfile = "logs/deeptools_bamCoverage/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
         rules.bam_rmdup.output
     output:
