@@ -60,6 +60,11 @@ rule all_deeptools_bamCoverage:
                file = make_targets_from_runTable(runTable, library_type),
                suffix = ["bw"])
 
+rule all_merge_bigwigs:
+    input:
+        expand("deeptools/merge_bigwigs/MCF10A/{chip_antibody}_coverage.bw",
+               chip_antibody = list(runTable.aggregate_column.unique()))
+
 # test rules
 rule all_align_test:
     input:
@@ -85,7 +90,7 @@ rule all_deeptools_bamCoverage_test:
 
 rule all_merge_bigwigs_test:
     input:
-        "deeptools/merge_bigwigs/MCF10A/Input_coverage.bw"
+        "deeptools/merge_bigwigs/MCF10A/H2BK120ub1_coverage.bw"
 
 # includes of rules
 include: "rules/other.smk"
