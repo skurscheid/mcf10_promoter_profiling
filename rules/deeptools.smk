@@ -166,17 +166,8 @@ rule merge_bigwigs:
         chip = get_bigwigCompare_inputs
     output:
         "deeptools/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.bw"
-    run:
-        try:
-            len({input.chip}) < 3
-        except ValueError:
-            print("Rule can only handle maximum of two input files")
-        else:
-            if len({input.chip}) == 1:
-                cmd = 'ln -sr {input.chip} {output}'
-            elif len({input.chip}) == 2:
-                cmd = 'bigwigCompare -b1 {input.chip}[0] -b2 {input.chip}[1] --operation mean -o {output}'
-            shell(cmd)
+    script:
+        "scripts/deeptools_wrappers.py"
 
 #rule deeptools_computeMatrix:
 #    version:
