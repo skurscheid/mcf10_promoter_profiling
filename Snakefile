@@ -60,6 +60,11 @@ rule all_deeptools_bamCoverage:
                file = make_targets_from_runTable(runTable, library_type),
                suffix = ["bw"])
 
+rule all_deeptools_bigwigCompare:
+    input:
+        expand("deeptools/bigwigCompare/MCF10A/{chip_antibody}_coverage.bw",
+               chip_antibody = list(runTable.aggregate_column.unique()))
+
 rule all_merge_bigwigs:
     input:
         expand("deeptools/merge_bigwigs/MCF10A/{chip_antibody}_coverage.bw",

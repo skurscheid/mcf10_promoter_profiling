@@ -26,4 +26,6 @@ params:
   deeptools:
     genome_size:
       GRCh37_hg19_UCSC: 2864785220
-      
+    binSize : 30
+    smoothLength : 10
+    normalizeUsing : 'RPKM'

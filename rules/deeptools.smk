@@ -128,10 +128,10 @@ rule deeptools_bamCoverage:
         "deeptools"
     params:
         extendReads = 200,
-        binSize = 30,
-        smoothLength = 10,
+        binSize = config['params']['deeptools']['binSize'],
+        smoothLength = config['params']['deeptools']['smoothLength'],
         effectiveGenomeSize = config['params']['deeptools']['genome_size']['GRCh37_hg19_UCSC'],
-        normalizeUsing = 'RPKM'
+        normalizeUsing = config['params']['deeptools']['normalizeUsing']
     log:
         logfile = "logs/deeptools_bamCoverage/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
@@ -168,6 +168,35 @@ rule merge_bigwigs:
         "deeptools/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.bw"
     script:
         "../scripts/deeptools_merge_bigwigs.py"
+
+
+rule deeptools_bigwigCompare:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        8
+    group:
+        "deeptools"
+    params:
+        binSize = config['params']['deeptools']['binSize'],
+    log:
+        logfile = "logs/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.log"
+    input:
+        chip = "deeptools/merge_bigwigs/{cell_line}/{chip_antibody}_coverage.bw", 
+        input = "deeptools/merge_bigwigs/{cell_line}/Input_coverage.bw" 
+    output:
+        "deeptools/bigwigCompare/{cell_line}/{chip_antibody}_vs_Input.bw"
+    shell:
+        """
+            bigwigCompare --bigwig1 {input.chip}\
+                          --bigwig2 {input.input}\
+                          --operation log2\
+                          --binSize {params.binSize}\
+                          --numberOfProcessors {threads}\
+                          --outFileName {output}
+        """
 
 #rule deeptools_computeMatrix:
 #    version:
