@@ -83,6 +83,10 @@ rule all_deeptools_bamCoverage_test:
                file = make_targets_from_runTable(runTable, library_type)[88],
                suffix = ["bw"])
 
+rule all_merge_bigwigs_test:
+    input:
+        "deeptools/merged/MCF10A/Input_coverage.bw"
+
 # includes of rules
 include: "rules/other.smk"
 include: "rules/sra_download.smk"

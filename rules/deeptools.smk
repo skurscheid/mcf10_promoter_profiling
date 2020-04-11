@@ -13,6 +13,7 @@ Rules for processing HTS data with deepTools
 For usage, include this in your workflow.
 """
 
+# input & other functions
 def get_multi_bam_summary_input(wildcards):
     selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
     library_type = config['library_type']
@@ -22,7 +23,7 @@ def get_multi_bam_summary_input(wildcards):
     for index, row in runTable[sel_rows][selected_columns].iterrows():
         l.append('/'.join(["samtools/rmdup", cell_line, row.aggregate_column, library_type, row.Run]) + '.bam')
     return(l)
-    
+
 def get_multi_bam_summary_labels(wildcards):
     selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
     cell_line = wildcards['cell_line']
@@ -32,6 +33,18 @@ def get_multi_bam_summary_labels(wildcards):
         l.append('_'.join([cell_line, row.aggregate_column, row.Run]))
     return(l)
 
+def get_bigwigCompare_inputs(wildcards):
+    selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
+    library_type = config['library_type']
+    cell_line = wildcards['cell_line']
+    chip_antibody = wildcards['chip_antibody']
+    l = []
+    selection = runTable[(runTable['aggregate_column'] == chip_antibody) & (runTable[selected_columns[0]] == cell_line)]
+    for index, row in selection.iterrows():
+        l.append('/'.join(["deeptools/bamCoverage", cell_line, row.aggregate_column, library_type, row.Run]) + '.bw')
+    return(l)
+
+# actual rules
 rule macs2_predictd:
     version:
         1
@@ -136,6 +149,34 @@ rule deeptools_bamCoverage:
                         --smoothLength {params.smoothLength}\
                         --outFileName {output} 2>{log.logfile}
         """
+
+rule merge_bigwigs:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        4
+    group:
+        "deeptools"
+    params:
+    log:
+        logfile = "logs/merge_bigwigs/{cell_line}.log"
+    input:
+        chip = get_bigwigCompare_inputs
+    output:
+        "deeptools/merged/{cell_line}/{chip_antibody}_coverage.bw"
+    run:
+        try:
+            len({input.chip}) < 3
+        except ValueError:
+            print("Rule can only handle maximum of two input files")
+        else:
+            if len({input.chip}) == 1:
+                cmd = 'ln -sr {input.chip} {output}'
+            else if len({input.chip}) == 2:
+                cmd = 'bigwigCompare -b1 {input.chip}[0] -b2 {input.chip}[1] --operation mean -o {output}'
+            shell(cmd)
 
 #rule deeptools_computeMatrix:
 #    version:
