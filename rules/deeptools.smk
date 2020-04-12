@@ -198,16 +198,35 @@ rule deeptools_bigwigCompare:
                           --outFileName {output}
         """
 
-#rule deeptools_computeMatrix:
-#    version:
-#        1
-#    conda:
-#        "../envs/deeptools.yaml"
-#    threads:
-#        1
-#    group:
-#        "deeptools"
-#    params:
-#    log:
-#        logfile = "logs/deeptools_computeMatrix/{cell_line}.log"
-#    input:
+rule deeptools_computeMatrix_referencepoint:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        16
+    group:
+        "deeptools"
+    params:
+        referencePoint = config['params']['deeptools']['referencePoint'],
+        beforeRegionStartLength = config['params']['deeptools']['beforeRegionStartLength'],
+        afterRegionStartLength = config['params']['deeptools']['afterRegionStartLength'],
+        sortRegions = config['params']['deeptools']['sortRegions'],
+        regionsFileName = config['params']['deeptools']['regionsFiles'][wildcards['figure']]
+    log:
+        logfile = "logs/deeptools_computeMatrix/{cell_line}/{chip_antibody}_{figure}_matrix.log"
+    input:
+        rules.deeptools_bigwigCompare.output
+    output:
+        "deeptools/computeMatrix_referencepoint/{cell_line}/{chip_antibody}_{figure}_matrix.gz"
+    shell:
+        """
+            computeMatrix reference-point --regionsFileName {params.regionsFileName}\
+                                          --scoreFileName {input}\
+                                          --outFileName {output}\
+                                          --referencePoint {params.referencePoint}\
+                                          --beforeRegionStartLength {params.beforeRegionStartLength}\
+                                          --afterRegionStartLength {params.afterRegionStartLength}\
+                                          --sortRegions {params.sortRegions}\
+                                          --numberOfProcessors {threads} 2>{log.logfile}
+        """

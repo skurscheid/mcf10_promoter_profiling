@@ -60,15 +60,21 @@ rule all_deeptools_bamCoverage:
                file = make_targets_from_runTable(runTable, library_type),
                suffix = ["bw"])
 
-rule all_deeptools_bigwigCompare:
+rule all_merge_bigwigs:
     input:
         expand("deeptools/bigwigCompare/MCF10A/{chip_antibody}_vs_Input.bw",
                chip_antibody = list(runTable.aggregate_column.unique()))
 
-rule all_merge_bigwigs:
+rule all_deeptools_bigwigCompare:
     input:
-        expand("deeptools/merge_bigwigs/MCF10A/{chip_antibody}_coverage.bw",
+        expand("deeptools/bigwigCompare/MCF10A/{chip_antibody}_coverage.bw",
                chip_antibody = list(runTable.aggregate_column.unique()))
+        
+rule all_deeptools_computeMatrix_referencepoint:
+    input:
+        expand("deeptools/computeMatrix_referencepoint/MCF10A/{chip_antibody}_{figure}_matrix.gz",
+               chip_antibody = list(runTable.aggregate_column.unique(),
+               figure = ['Fig1C', 'Fig1D'])
 
 # test rules
 rule all_align_test:
