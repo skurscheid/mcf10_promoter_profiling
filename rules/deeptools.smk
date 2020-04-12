@@ -260,5 +260,5 @@ rule deeptools_plotProfile:
                         --numPlotsPerRow {params.numPlotsPerRow}\
                         --plotType {params.plotType}\
                         --regionsLabel {params.regionsLabel}\
-                        --plotTitle {wildcards.antibody} 2>{log.logfile}
+                        --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
         """
