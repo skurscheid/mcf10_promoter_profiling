@@ -247,7 +247,9 @@ rule deeptools_plotProfile:
     params:
         numPlotsPerRow = config['params']['deeptools']['numPlotsPerRow'],
         plotType = 'se',
-        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7']
+        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7'],
+        yMin = -2.5,
+        yMax = 4.5
     input:
         rules.deeptools_computeMatrix_referencepoint.output
     output:
@@ -260,5 +262,6 @@ rule deeptools_plotProfile:
                         --numPlotsPerRow {params.numPlotsPerRow}\
                         --plotType {params.plotType}\
                         --regionsLabel {params.regionsLabel}\
-                        --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
+                        --yMin {params.yMin} --yMax {params.yMax}\
+                        --plotTitle {wildcards.antibody} 2>{log.logfile}
         """
