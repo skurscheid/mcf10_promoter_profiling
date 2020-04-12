@@ -263,5 +263,5 @@ rule deeptools_plotProfile:
                         --plotType {params.plotType}\
                         --regionsLabel {params.regionsLabel}\
                         --yMin {params.yMin} --yMax {params.yMax}\
-                        --plotTitle {wildcards.antibody} 2>{log.logfile}
+                        --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
         """

@@ -1,4 +1,4 @@
-snakemake -s /home/150/sxk150/mcf10_promoter_profiling/Snakefile ${1}\
+/home/150/sxk150/miniconda3/envs/snakemake/bin/snakemake -s /home/150/sxk150/mcf10_promoter_profiling/Snakefile ${1}\
 	--use-conda\
 	--rerun-incomplete \
         --local-cores 48\
