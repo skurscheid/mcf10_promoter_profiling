@@ -24,8 +24,17 @@ params:
   fastp: ""
 
   deeptools:
+    annotation_dir:
+      gadi: '/home/150/sxk150/data/PromoterSeqCap/annotations/'
     genome_size:
       GRCh37_hg19_UCSC: 2864785220
     binSize : 30
     smoothLength : 10
     normalizeUsing : 'RPKM'
+    referencePoint: 'center'
+    beforeRegionStartLength : 1000
+    afterRegionStartLength: 1000
+    sortRegions : 'keep',
+    regionsFiles:
+      Fig1C: ['Fig1C_cluster_1.bed', 'Fig1C_cluster_2.bed', 'Fig1C_cluster_3.bed', 'Fig1C_cluster_4.bed', 'Fig1C_cluster_5.bed', 'Fig1C_cluster_6.bed', 'Fig1C_cluster_7.bed']
+      Fig1D: ['Fig1D_cluster_1.bed', 'Fig1D_cluster_2.bed', 'Fig1D_cluster_3.bed', 'Fig1D_cluster_4.bed', 'Fig1D_cluster_5.bed', 'Fig1D_cluster_6.bed', 'Fig1D_cluster_7.bed']
