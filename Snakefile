@@ -62,7 +62,7 @@ rule all_deeptools_bamCoverage:
 
 rule all_deeptools_bigwigCompare:
     input:
-        expand("deeptools/bigwigCompare/MCF10A/{chip_antibody}_coverage.bw",
+        expand("deeptools/bigwigCompare/MCF10A/{chip_antibody}_vs_Input.bw",
                chip_antibody = list(runTable.aggregate_column.unique()))
 
 rule all_merge_bigwigs:
