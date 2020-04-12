@@ -213,7 +213,8 @@ rule deeptools_computeMatrix_referencepoint:
         afterRegionStartLength = config['params']['deeptools']['afterRegionStartLength'],
         sortRegions = config['params']['deeptools']['sortRegions'],
         regionsFileName = lambda wildcards: expand("{dir}{figure}", dir = config['params']['deeptools']['annotation_dir'][machine], figure = config['params']['deeptools']['regionsFiles'][wildcards['figure']]),
-        annotationDir = config['params']['deeptools']['annotation_dir'][machine]
+        annotationDir = config['params']['deeptools']['annotation_dir'][machine],
+        regionsLabel = ['']
     log:
         logfile = "logs/deeptools_computeMatrix/{cell_line}/{chip_antibody}_{figure}_matrix.log"
     input:
@@ -230,4 +231,34 @@ rule deeptools_computeMatrix_referencepoint:
                                           --afterRegionStartLength {params.afterRegionStartLength}\
                                           --sortRegions {params.sortRegions}\
                                           --numberOfProcessors {threads} 2>{log.logfile}
+        """
+
+rule deeptools_plotProfile:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        16
+    group:
+        "deeptools"
+    log:
+        logfile = "logs/deeptools_plotProfile/{cell_line}/{chip_antibody}_{figure}.log"
+    params:
+        numPlotsPerRow = config['params']['deeptools']['numPlotsPerRow'],
+        plotType = 'se',
+        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7']
+    input:
+        rules.deeptools_computeMatrix_referencepoint.output
+    output:
+        "deeptools/plotProfile/{cell_line}/{chip_antibody}_{figure}.pdf"
+    shell:
+        """
+            plotProfile -m {input}\
+                        -o {output}\
+                        --perGroup\
+                        --numPlotsPerRow {params.numPlotsPerRow}\
+                        --plotType {params.plotType}\
+                        --regionsLabel {params.regionsLabel}\
+                        --plotTitle {wildcards.antibody} 2>{log.logfile}
         """
