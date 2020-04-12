@@ -35,6 +35,7 @@ params:
     beforeRegionStartLength : 1000
     afterRegionStartLength: 1000
     sortRegions : 'keep'
+    numPlotsPerRow : 1
     regionsFiles:
       Fig1C: ['Fig1C_cluster_1.bed', 'Fig1C_cluster_2.bed', 'Fig1C_cluster_3.bed', 'Fig1C_cluster_4.bed', 'Fig1C_cluster_5.bed', 'Fig1C_cluster_6.bed', 'Fig1C_cluster_7.bed']
       Fig1D: ['Fig1D_cluster_1.bed', 'Fig1D_cluster_2.bed', 'Fig1D_cluster_3.bed', 'Fig1D_cluster_4.bed', 'Fig1D_cluster_5.bed', 'Fig1D_cluster_6.bed', 'Fig1D_cluster_7.bed']
