@@ -81,7 +81,7 @@ rule all_deeptools_plotProfile:
     input:
         expand("deeptools/plotProfile/{cell_line}/{chip_antibody}_{figure}.pdf",
                cell_line = 'MCF10A',
-               chip_antibody = list(runTable.aggregate_column.unique()),
+               chip_antibody = ['H3K27ac', 'H3K27me3', 'H3K36me3', 'H3K4me3', 'H3K79me2', 'H3K9ac', 'H3K9me3', 'H2BK120ub1', 'H3K23ac', 'H3K4me1', 'H4K8ac'],
                figure = ['Fig1C', 'Fig1D'])
 
 # test rules
