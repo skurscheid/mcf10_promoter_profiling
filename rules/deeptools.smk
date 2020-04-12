@@ -212,7 +212,8 @@ rule deeptools_computeMatrix_referencepoint:
         beforeRegionStartLength = config['params']['deeptools']['beforeRegionStartLength'],
         afterRegionStartLength = config['params']['deeptools']['afterRegionStartLength'],
         sortRegions = config['params']['deeptools']['sortRegions'],
-        regionsFileName = config['params']['deeptools']['regionsFiles'][wildcards['figure']]
+        regionsFileName = lambda wildcards: expand("{dir}{figure}", dir = config['params']['deeptools']['annotation_dir'][machine], figure = config['params']['deeptools']['regionsFiles'][wildcards['figure']]),
+        annotationDir = config['params']['deeptools']['annotation_dir'][machine]
     log:
         logfile = "logs/deeptools_computeMatrix/{cell_line}/{chip_antibody}_{figure}_matrix.log"
     input:

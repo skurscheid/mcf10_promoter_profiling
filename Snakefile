@@ -73,7 +73,7 @@ rule all_deeptools_bigwigCompare:
 rule all_deeptools_computeMatrix_referencepoint:
     input:
         expand("deeptools/computeMatrix_referencepoint/MCF10A/{chip_antibody}_{figure}_matrix.gz",
-               chip_antibody = list(runTable.aggregate_column.unique(),
+               chip_antibody = list(runTable.aggregate_column.unique()),
                figure = ['Fig1C', 'Fig1D'])
 
 # test rules
