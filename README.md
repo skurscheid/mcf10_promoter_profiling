@@ -15,7 +15,7 @@ Insert your code into the respective folders, i.e. `scripts`, `rules`, and `envs
 ### Simple
 
 #### Workflow illustration (target: all_align)
-![filegraph](filegraph.png)
+![filegraph](filegraph_small.png)
 
 #### Step 1: Install workflow
 
