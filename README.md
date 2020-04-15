@@ -14,6 +14,9 @@ Insert your code into the respective folders, i.e. `scripts`, `rules`, and `envs
 
 ### Simple
 
+#### Workflow illustration (target: all_align)
+![rulegraph](rulegraph.png)
+
 #### Step 1: Install workflow
 
 If you simply want to use this workflow, download and extract the [latest release](https://github.com/snakemake-workflows/mcf10_promoter_profiling/releases).
