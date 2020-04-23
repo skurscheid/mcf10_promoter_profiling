@@ -86,7 +86,7 @@ rule all_deeptools_plotProfile:
 
 rule all_deeptools_plotHeatmap:
     input:
-        expand("deeptools/plotHeatmap/{cell_line}/{chip_antibody}_{figure}.pdf",
+        expand("deeptools/plotHeatmap/{cell_line}/{figure}/{chip_antibody}.pdf",
                cell_line = 'MCF10A',
                chip_antibody = ['H3K27ac', 'H3K27me3', 'H3K36me3', 'H3K4me3', 'H3K79me2', 'H3K9ac', 'H3K9me3', 'H2BK120ub1', 'H3K23ac', 'H3K4me1', 'H4K8ac'],
                figure = ['Fig1A', 'Fig1B', 'Fig1C', 'Fig1D'])
