@@ -239,7 +239,7 @@ rule deeptools_plotProfile:
     conda:
         "../envs/deeptools.yaml"
     threads:
-        16
+        1
     group:
         "deeptools"
     log:
@@ -273,7 +273,7 @@ rule deeptools_plotHeatmap:
     conda:
         "../envs/deeptools.yaml"
     threads:
-        16
+        1
     group:
         "deeptools"
     log:
