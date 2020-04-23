@@ -35,7 +35,9 @@ params:
     beforeRegionStartLength : 1000
     afterRegionStartLength: 1000
     sortRegions : 'keep'
-    numPlotsPerRow : 1
+    plotProfile:
+      numPlotsPerRow : 1
+      colors: "\"#ff0000ff\" \"#ffdb00ff\" \"#49ff00ff\" \"#00ff92ff\" \"#0092ffff\" \"#4900ffff\" \"#ff00dbff\"" 
     regionsFiles:
       Fig1A: ['Fig1A_cluster_1.bed', 'Fig1A_cluster_2.bed', 'Fig1A_cluster_3.bed', 'Fig1A_cluster_4.bed', 'Fig1A_cluster_5.bed', 'Fig1A_cluster_6.bed', 'Fig1A_cluster_7.bed']
       Fig1B: ['Fig1B_cluster_1.bed', 'Fig1B_cluster_2.bed', 'Fig1B_cluster_3.bed', 'Fig1B_cluster_4.bed', 'Fig1B_cluster_5.bed', 'Fig1B_cluster_6.bed', 'Fig1B_cluster_7.bed']

@@ -79,7 +79,7 @@ rule all_deeptools_computeMatrix_referencepoint:
 
 rule all_deeptools_plotProfile:
     input:
-        expand("deeptools/plotProfile/{cell_line}/{chip_antibody}_{figure}.pdf",
+        expand("deeptools/plotProfile/{cell_line}/{figure}/{chip_antibody}.pdf",
                cell_line = 'MCF10A',
                chip_antibody = ['H3K27ac', 'H3K27me3', 'H3K36me3', 'H3K4me3', 'H3K79me2', 'H3K9ac', 'H3K9me3', 'H2BK120ub1', 'H3K23ac', 'H3K4me1', 'H4K8ac'],
                figure = ['Fig1A', 'Fig1B', 'Fig1C', 'Fig1D'])
@@ -92,6 +92,13 @@ rule all_deeptools_plotHeatmap:
                figure = ['Fig1A', 'Fig1B', 'Fig1C', 'Fig1D'])
 
 # test rules
+rule test_deeptools_plotProfile:
+    input:
+        expand("deeptools/plotProfile/{cell_line}/{figure}/{chip_antibody}.pdf",
+               cell_line = 'MCF10A',
+               chip_antibody = ['H3K27ac'],
+               figure = ['Fig1A', 'Fig1B', 'Fig1C', 'Fig1D'])
+
 rule all_align_test:
     input:
         expand("samtools/rmdup/{file}.{suffix}",
