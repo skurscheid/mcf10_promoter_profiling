@@ -37,9 +37,9 @@ params:
     sortRegions : 'keep'
     plotProfile:
       numPlotsPerRow : 1
-      colors: "\"#ff0000ff\" \"#ffdb00ff\" \"#49ff00ff\" \"#00ff92ff\" \"#0092ffff\" \"#4900ffff\" \"#ff00dbff\"" 
+      colors: "\"#ff00dbff\" \"#4900ffff\" \"#0092ffff\" \"#00ff92ff\" \"#49ff00ff\" \"#ffdb00ff\" \"#ff0000ff\"" 
     regionsFiles:
-      Fig1A: ['Fig1A_cluster_1.bed', 'Fig1A_cluster_2.bed', 'Fig1A_cluster_3.bed', 'Fig1A_cluster_4.bed', 'Fig1A_cluster_5.bed', 'Fig1A_cluster_6.bed', 'Fig1A_cluster_7.bed']
-      Fig1B: ['Fig1B_cluster_1.bed', 'Fig1B_cluster_2.bed', 'Fig1B_cluster_3.bed', 'Fig1B_cluster_4.bed', 'Fig1B_cluster_5.bed', 'Fig1B_cluster_6.bed', 'Fig1B_cluster_7.bed']
-      Fig1C: ['Fig1C_cluster_1.bed', 'Fig1C_cluster_2.bed', 'Fig1C_cluster_3.bed', 'Fig1C_cluster_4.bed', 'Fig1C_cluster_5.bed', 'Fig1C_cluster_6.bed', 'Fig1C_cluster_7.bed']
-      Fig1D: ['Fig1D_cluster_1.bed', 'Fig1D_cluster_2.bed', 'Fig1D_cluster_3.bed', 'Fig1D_cluster_4.bed', 'Fig1D_cluster_5.bed', 'Fig1D_cluster_6.bed', 'Fig1D_cluster_7.bed']
+      Fig1A: ["Fig1A_cluster_7.bed", "Fig1A_cluster_6.bed", "Fig1A_cluster_5.bed", "Fig1A_cluster_4.bed", "Fig1A_cluster_3.bed", "Fig1A_cluster_2.bed", "Fig1A_cluster_1.bed"]
+      Fig1B: ["Fig1B_cluster_7.bed", "Fig1B_cluster_6.bed", "Fig1B_cluster_5.bed", "Fig1B_cluster_4.bed", "Fig1B_cluster_3.bed", "Fig1B_cluster_2.bed", "Fig1B_cluster_1.bed"]
+      Fig1C: ["Fig1C_cluster_7.bed", "Fig1C_cluster_6.bed", "Fig1C_cluster_5.bed", "Fig1C_cluster_4.bed", "Fig1C_cluster_3.bed", "Fig1C_cluster_2.bed", "Fig1C_cluster_1.bed"]
+      Fig1D: ["Fig1D_cluster_7.bed", "Fig1D_cluster_6.bed", "Fig1D_cluster_5.bed", "Fig1D_cluster_4.bed", "Fig1D_cluster_3.bed", "Fig1D_cluster_2.bed", "Fig1D_cluster_1.bed"]
