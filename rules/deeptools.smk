@@ -265,3 +265,31 @@ rule deeptools_plotProfile:
                         --yMin {params.yMin} --yMax {params.yMax}\
                         --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
         """
+
+rule deeptools_plotHeatmap:
+    version:
+        1
+    conda:
+        "../envs/deeptools.yaml"
+    threads:
+        16
+    group:
+        "deeptools"
+    log:
+        logfile = "logs/deeptools_plotHeatmap/{cell_line}/{chip_antibody}_{figure}.log"
+    params:
+        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7'],
+        sortRegions = 'keep'
+    input:
+        rules.deeptools_computeMatrix_referencepoint.output
+    output:
+        "deeptools/plotHeatmap/{cell_line}/{chip_antibody}_{figure}.pdf"
+    shell:
+        '''
+            plotHeatmap -m {input}\
+                        -o {output}\
+                        --regionsLabel {params.regionsLabel}\
+                        --sortRegions {params.sortRegions}\
+                        --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
+        '''
+
