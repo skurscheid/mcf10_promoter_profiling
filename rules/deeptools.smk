@@ -284,7 +284,7 @@ rule deeptools_plotHeatmap:
     input:
         rules.deeptools_computeMatrix_referencepoint.output
     output:
-        "deeptools/plotHeatmap/{cell_line}/{chip_antibody}_{figure}.pdf"
+        "deeptools/plotHeatmap/{cell_line}/{figure}/{chip_antibody}.pdf"
     shell:
         '''
             plotHeatmap -m {input}\
