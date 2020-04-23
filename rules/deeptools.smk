@@ -243,10 +243,10 @@ rule deeptools_plotProfile:
     group:
         "deeptools"
     log:
-        logfile = "logs/deeptools_plotProfile/{cell_line}/{chip_antibody}_{figure}.log"
+        logfile = "logs/deeptools_plotProfile/{cell_line}/{figure}/{chip_antibody}.log"
     params:
         numPlotsPerRow = config['params']['deeptools']['plotProfile']['numPlotsPerRow'],
-        colors = config['params']['deeptools']['plotProfile']['colors']
+        colors = config['params']['deeptools']['plotProfile']['colors'],
         plotType = 'se',
         regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7'],
         yMin = -2.5,
@@ -254,15 +254,15 @@ rule deeptools_plotProfile:
     input:
         rules.deeptools_computeMatrix_referencepoint.output
     output:
-        "deeptools/plotProfile/{cell_line}/{figure}/{chip_antibody}_{figure}.pdf"
+        "deeptools/plotProfile/{cell_line}/{figure}/{chip_antibody}.pdf"
     shell:
         """
             plotProfile -m {input}\
                         -o {output}\
                         --perGroup\
                         --numPlotsPerRow {params.numPlotsPerRow}\
+                        --colors {params.colors}\
                         --plotType {params.plotType}\
                         --regionsLabel {params.regionsLabel}\
-                        --yMin {params.yMin} --yMax {params.yMax}\
-                        --plotTitle {wildcards.chip_antibody} 2>{log.logfile}
+                        --plotTitle '{wildcards.figure} - {wildcards.chip_antibody}' 2>{log.logfile}
         """

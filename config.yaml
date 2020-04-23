@@ -37,7 +37,7 @@ params:
     sortRegions : 'keep'
     plotProfile:
       numPlotsPerRow : 1
-      colors: ['#FF0000FF' '#FFDB00FF' '#49FF00FF' '#00FF92FF' '#0092FFFF' '#4900FFFF' '#FF00DBFF']
+      colors: "\"#ff0000ff\" \"#ffdb00ff\" \"#49ff00ff\" \"#00ff92ff\" \"#0092ffff\" \"#4900ffff\" \"#ff00dbff\"" 
     regionsFiles:
       Fig1A: ['Fig1A_cluster_1.bed', 'Fig1A_cluster_2.bed', 'Fig1A_cluster_3.bed', 'Fig1A_cluster_4.bed', 'Fig1A_cluster_5.bed', 'Fig1A_cluster_6.bed', 'Fig1A_cluster_7.bed']
       Fig1B: ['Fig1B_cluster_1.bed', 'Fig1B_cluster_2.bed', 'Fig1B_cluster_3.bed', 'Fig1B_cluster_4.bed', 'Fig1B_cluster_5.bed', 'Fig1B_cluster_6.bed', 'Fig1B_cluster_7.bed']
