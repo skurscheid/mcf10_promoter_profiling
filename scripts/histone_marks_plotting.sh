@@ -115,16 +115,17 @@ plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1C_matrix.gz\
             -o deeptools/plotHeatmap/MCF10A/Fig1C/Fig1C_heatmap.pdf\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
-            --plotTitle 'Figure 1B - histone marks'\
+            --plotTitle 'Figure 1C - histone marks'\
             2>logs/deeptools_plotHeatmap/MCF10A/Fig1C_heatmap.log
 
 plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1C_matrix.gz\
             -o deeptools/plotHeatmap/MCF10A/Fig1C/Fig1C_heatmap.png\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
-            --plotTitle 'Figure 1B - histone marks'\
+            --plotTitle 'Figure 1C - histone marks'\
             2>logs/deeptools_plotHeatmap/MCF10A/Fig1C_heatmap.log
 
+# Figure 1D histone marks
 computeMatrix reference-point --regionsFileName /home/150/sxk150/data/PromoterSeqCap/annotations/Fig1D_cluster_7.bed\
                                                 /home/150/sxk150/data/PromoterSeqCap/annotations/Fig1D_cluster_6.bed\
                                                 /home/150/sxk150/data/PromoterSeqCap/annotations/Fig1D_cluster_5.bed\
@@ -156,13 +157,12 @@ plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1D_matrix.gz\
             -o deeptools/plotHeatmap/MCF10A/Fig1D/Fig1D_heatmap.pdf\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
-            --plotTitle 'Figure 1B - histone marks'\
+            --plotTitle 'Figure 1D - histone marks'\
             2>logs/deeptools_plotHeatmap/MCF10A/Fig1D_heatmap.log
 
 plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1D_matrix.gz\
             -o deeptools/plotHeatmap/MCF10A/Fig1D/Fig1D_heatmap.png\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
-            --plotTitle 'Figure 1B - histone marks'\
+            --plotTitle 'Figure 1D - histone marks'\
             2>logs/deeptools_plotHeatmap/MCF10A/Fig1D_heatmap.log
-
