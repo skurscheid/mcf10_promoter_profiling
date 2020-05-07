@@ -31,3 +31,30 @@ rule run_fastp_se:
     shell:
         "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}"
 
+rule run_fastp_pe:
+    conda:
+        "../envs/fastp.yaml"
+    version:
+        "1"
+    threads:
+        4
+    params:
+        fastq_suffix = ['.end1.fastq.gz', '.end2.fastq.gz']
+    log:
+        logfile = "logs/fastp/{cell_line}/{chip_antibody}/pe/{run}.log"
+    input:
+        fq1 = "raw/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}",
+        fq2 = "raw/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}"
+    output:
+        trimmed1 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.{suffix1}",
+        trimmed2 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}",
+        report_html = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.html",
+        report_json = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.json"
+    shell:
+        """
+            fastp -i {input.fq1} -I {input.fq2}\
+                  -o {output.trimmed1} -O {output.trimmed2}\
+                  --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}
+        """
+
+
