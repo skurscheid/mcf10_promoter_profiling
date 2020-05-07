@@ -213,8 +213,7 @@ rule deeptools_computeMatrix_referencepoint:
         afterRegionStartLength = config['params']['deeptools']['afterRegionStartLength'],
         sortRegions = config['params']['deeptools']['sortRegions'],
         regionsFileName = lambda wildcards: expand("{dir}{figure}", dir = config['params']['deeptools']['annotation_dir'][machine], figure = config['params']['deeptools']['regionsFiles'][wildcards['figure']]),
-        annotationDir = config['params']['deeptools']['annotation_dir'][machine],
-        regionsLabel = ['']
+        annotationDir = config['params']['deeptools']['annotation_dir'][machine]
     log:
         logfile = "logs/deeptools_computeMatrix/{cell_line}/{chip_antibody}_{figure}_matrix.log"
     input:
@@ -248,7 +247,7 @@ rule deeptools_plotProfile:
         numPlotsPerRow = config['params']['deeptools']['plotProfile']['numPlotsPerRow'],
         colors = config['params']['deeptools']['plotProfile']['colors'],
         plotType = 'se',
-        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7'],
+        regionsLabel = config['params']['deeptools']['regionsLabel']
         yMin = -2.5,
         yMax = 4.5
     input:
@@ -279,7 +278,7 @@ rule deeptools_plotHeatmap:
     log:
         logfile = "logs/deeptools_plotHeatmap/{cell_line}/{chip_antibody}_{figure}.log"
     params:
-        regionsLabel = ['cluster_1', 'cluster_2', 'cluster_3', 'cluster_4', 'cluster_5', 'cluster_6', 'cluster_7'],
+        regionsLabel = config['params']['deeptools']['regionsLabel'],
         sortRegions = 'keep'
     input:
         rules.deeptools_computeMatrix_referencepoint.output
