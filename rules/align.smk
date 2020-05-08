@@ -20,13 +20,11 @@ def get_index(machine, config):
 singularity: "docker://skurscheid/snakemake_baseimage:0.2"
 
 rule bowtie2_se_global:
-    """ runs alignment of single-end fastq file, modified parameters specific for HiC data"""
+    """ runs alignment of single-end fastq file"""
     conda:
         "../envs/alignment.yaml"
     threads:
         12
-    group:
-        "alignment"
     params:
         index = get_index(machine, config),
         cli_params_global = config['params']['bowtie2']['cli_params_global'],
@@ -51,13 +49,44 @@ rule bowtie2_se_global:
             | samtools view {params.samtools_params_global} - > {output.bam}
         """
 
+rule bowtie2_pe_global:
+    """ runs alignment of paired-end fastq files"""
+    conda:
+        "../envs/alignment.yaml"
+    threads:
+        12
+    params:
+        fastq_suffix = ['.end1.fastq.gz', '.end2.fastq.gz']
+        index = get_index(machine, config),
+        cli_params_global = config['params']['bowtie2']['cli_params_global'],
+        samtools_params_global = "-F 4 -bS"
+    log:
+        logfile = "logs/bowtie2_global/{cell_line}/{chip_antibody}/pe/{run}.log"
+    input:
+        bowtie2_pe_global_input
+    output:
+        bam = temp("bowtie2/align_global/{cell_line}/{chip_antibody}/pe/{run}.bam")
+    shell:
+        """
+            export cli_threads=$(expr {threads} - 2);\
+            bowtie2\
+                    -x {params.index}\
+                    -p $cli_threads\
+                    -1 {input[0]} -2 {input[1]}\
+                    {params.cli_params_global}\
+                    --rg-id BMG\
+                    --rg SM:{wildcards.run}:{wildcards.cell_line}:{wildcards.chip_antibody}\
+                    2>> {log.logfile}\
+            | samtools view {params.samtools_params_global} - > {output.bam}
+        """
+        
 rule bam_quality_filter:
     conda:
         "../envs/alignment.yaml"
     version:
         "1.0"
     group:
-        "alignment"
+        "alignment_post"
     log:
         logfile = "logs/samtools/quality_filtered/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     params:
@@ -77,7 +106,7 @@ rule bam_sort:
     threads:
         4
     group:
-        "alignment"
+        "alignment_post"
     log:
         logfile = "logs/samtools/sort/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
@@ -93,7 +122,7 @@ rule bam_mark_duplicates:
     version:
         "1.0"
     group:
-        "alignment"
+        "alignment_post"
     log:
         logfile = "logs/picardTools/MarkDuplicates/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     threads:
@@ -118,7 +147,7 @@ rule bam_rmdup:
     conda:
         "../envs/alignment.yaml"
     group:
-        "alignment"
+        "alignment_post"
     log:
         logfile = "logs/samtools/rmdup/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
@@ -132,7 +161,7 @@ rule bam_index:
     conda:
         "../envs/alignment.yaml"
     group:
-        "alignment"
+        "alignment_post"
     log:
         logfile = "logs/samtools/index/{cell_line}/{chip_antibody}/{library_type}/{run}.log"
     input:
