@@ -40,10 +40,8 @@ rule run_fastp_pe:
         4
     params:
         fastq_suffix = ['.end1.fastq.gz', '.end2.fastq.gz']
-    log:
-        logfile = "logs/fastp/{cell_line}/{chip_antibody}/pe/{run}.log"
     input:
-        fq1 = "raw/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}",
+        fq1 = "raw/{cell_line}/{chip_antibody}/pe/{run}.{suffix1}",
         fq2 = "raw/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}"
     output:
         trimmed1 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.{suffix1}",
@@ -54,7 +52,8 @@ rule run_fastp_pe:
         """
             fastp -i {input.fq1} -I {input.fq2}\
                   -o {output.trimmed1} -O {output.trimmed2}\
-                  --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}
+                  --detect_adapter_for_pe\
+                  --html {output.report_html} --json {output.report_json} --thread {threads} 
         """
 
 
