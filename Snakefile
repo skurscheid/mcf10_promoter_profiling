@@ -15,10 +15,11 @@ include: "scripts/helper.py"
 
 run="[^.]*"
 
-runTable = pd.read_csv(config['params']['general']['runTable'][config['project']]['file'], sep = ',', index_col='row_id')
+project = config['project']
+runTable = pd.read_csv(config['params']['general'][project]['runTable']['file'], sep = ',', index_col='row_id')
 library_type = config['library_type']
 machine = config['machine']
-selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
+selected_columns = config['params']['general'][project]['runTable']['selected_columns']
 
 rule all:
     input:
