@@ -9,12 +9,20 @@ params:
     temp_dir:
       gadi: ""
       shiny: "~/temp"
-    runTable:
-      PRJNA336352:
+    PRJNA336352:
+      runTable:
         file: 'PRJNA336352_SraRunTable.txt'
         selected_columns: ['Cell_Line', 'aggregate_column', 'Run']
         aggregate_column: 'chip_antibody'
         chip_input_value: 'none'
+    Tremethick:
+      runTable:
+        file: 'Tremethick_FSU.txt'
+        selected_columns: ['Cell_Line', 'aggregate_column', 'Run']
+        aggregate_column: 'chip_antibody'
+        chip_input_value: 'none'
+      fastq_suffix: ['end1.fastq.gz', 'end2.fastq.gz']
+
 
   bowtie2:
     cli_params_global: "--very-sensitive --end-to-end"
