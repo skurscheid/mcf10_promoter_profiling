@@ -5,10 +5,10 @@ stream = open('config.yaml', 'r')
 config = yaml.load(stream, Loader=yaml.SafeLoader)
 config['project'] = 'PRJNA336352'
 
-runTable_file = config['params']['general']['runTable'][config['project']]['file']
-selected_columns = config['params']['general']['runTable'][config['project']]['selected_columns']
-aggregate = config['params']['general']['runTable'][config['project']]['aggregate_column']
-chip_input_value = config['params']['general']['runTable'][config['project']]['chip_input_value']
+runTable_file = config['params']['general'][config['project']]['runTable']['file']
+selected_columns = config['params']['general'][config['project']]['runTable']['selected_columns']
+aggregate = config['params']['general'][config['project']]['runTable']['aggregate_column']
+chip_input_value = config['params']['general'][config['project']]['runTable']['chip_input_value']
 
 runTable = pd.read_csv(runTable_file, sep = ',')
 

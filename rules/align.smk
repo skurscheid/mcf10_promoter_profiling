@@ -63,7 +63,7 @@ rule bowtie2_pe_global:
     log:
         logfile = "logs/bowtie2_global/{cell_line}/{chip_antibody}/pe/{run}.log"
     input:
-        bowtie2_pe_global_input
+        rules.run_fastp_pe.output.trimmed1, rules.run_fastp_pe.output.trimmed2
     output:
         bam = temp("bowtie2/align_global/{cell_line}/{chip_antibody}/pe/{run}.bam")
     shell:
