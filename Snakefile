@@ -102,7 +102,7 @@ rule test_deeptools_plotProfile:
 rule all_align_test:
     input:
         expand("samtools/rmdup/{file}.{suffix}",
-               file = make_targets_from_runTable(runTable, library_type)[88],
+               file = make_targets_from_runTable(runTable, library_type)[0],
                suffix = ["bam", "bam.bai"])
 
 rule all_macs2_predictd_test:
