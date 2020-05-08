@@ -46,8 +46,8 @@ rule run_fastp_pe:
     output:
         trimmed1 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.{suffix1}",
         trimmed2 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.{suffix2}",
-        report_html = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.html",
-        report_json = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.json"
+        report_html = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}_{suffix1}_{suffix2}.fastp.html",
+        report_json = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}_{suffix1}_{suffix2}.fastp.json"
     shell:
         """
             fastp -i {input.fq1} -I {input.fq2}\
