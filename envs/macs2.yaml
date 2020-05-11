@@ -1,0 +1,8 @@
+name: macs2
+channels:
+  - bioconda
+  - defaults
+  - conda-forge
+dependencies:
+  - macs2=2.2.6
+  - pytools=2020.1

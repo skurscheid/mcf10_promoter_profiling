@@ -31,22 +31,28 @@ rule run_fastp_se:
     shell:
         "fastp -i {input[0]} -o {output.trimmed} --html {output.report_html} --json {output.report_json} --thread {threads} 2>{log.logfile}"
 
-rule fastp_dummy:
+rule run_fastp_pe:
     conda:
         "../envs/fastp.yaml"
     version:
-        "2"
+        "1"
     threads:
-        1
+        4
+    params:
+        fastq_suffix = ['.end1.fastq.gz', '.end2.fastq.gz']
     input:
-        fastq = "raw/{run}{end}.fastq.gz"
+        fastp_pe_input
     output:
-        ln_target = "fastp/trimmed/se/{biosample}/{replicate}/{run}{end}.fastq.gz"
+        trimmed1 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.end1.fastq.gz",
+        trimmed2 = "fastp/trimmed/{cell_line}/{chip_antibody}/pe/{run}.end1.fastq.gz",
+        report_html = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.html",
+        report_json = "fastp/report/{cell_line}/{chip_antibody}/pe/{run}.fastp.json"
     shell:
         """
-            if [ -e {output.ln_target} ] && [ ! -L {output.ln_target} ];\
-                then rm {output.ln_target}; ln -sr {input.fastq} {output.ln_target};\
-            else\
-                ln -sr {input.fastq} {output.ln_target};\
-            fi
+            fastp -i {input.fq1} -I {input.fq2}\
+                  -o {output.trimmed1} -O {output.trimmed2}\
+                  --detect_adapter_for_pe\
+                  --html {output.report_html} --json {output.report_json} --thread {threads} 
         """
+
+
