@@ -67,10 +67,7 @@ plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1B_matrix.gz\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
             --plotTitle 'Figure 1B - histone marks'\
-<<<<<<< HEAD
             --whatToShow 'heatmap and colorbar'\
-=======
->>>>>>> aa3cee8f75e13051e998e5fabbc812a511a36038
             2>>logs/deeptools_plotHeatmap/MCF10A/Fig1B_heatmap.log
 
 # Figure 1C histone marks
@@ -99,10 +96,7 @@ plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1C_matrix.gz\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
             --plotTitle 'Figure 1C - histone marks'\
-<<<<<<< HEAD
             --whatToShow 'heatmap and colorbar'\
-=======
->>>>>>> aa3cee8f75e13051e998e5fabbc812a511a36038
             2>>logs/deeptools_plotHeatmap/MCF10A/Fig1C_heatmap.log
 
 # Figure 1D histone marks
@@ -131,8 +125,5 @@ plotHeatmap -m deeptools/computeMatrix_referencepoint/MCF10A/Fig1D_matrix.gz\
             --regionsLabel 7 6 5 4 3 2 1\
             --sortRegions keep\
             --plotTitle 'Figure 1D - histone marks'\
-<<<<<<< HEAD
             --whatToShow 'heatmap and colorbar'\
-=======
->>>>>>> aa3cee8f75e13051e998e5fabbc812a511a36038
             2>>logs/deeptools_plotHeatmap/MCF10A/Fig1D_heatmap.log
